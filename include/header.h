@@ -96,7 +96,7 @@ int deallocateArrays();
 
 // main calculations
 void adi();
-void compute_rhs();
+void compute_rhs(int);
 void x_solve();
 void y_solve();
 void z_solve();
