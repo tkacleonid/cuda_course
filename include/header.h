@@ -62,6 +62,7 @@ extern double lhsm_[P_SIZE][5];
 extern double* g_u;
 extern double* g_rhs;
 extern double* g_forcing;
+extern double* g_temp;
 
 extern double* g_us;
 extern double* g_vs;
