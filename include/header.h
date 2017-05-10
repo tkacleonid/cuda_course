@@ -75,6 +75,10 @@ extern double* g_lhs_ ;
 extern double* g_lhsp_;
 extern double* g_lhsm_;
 
+extern double* g_lhs2_ ;
+extern double* g_lhs2p_;
+extern double* g_lhs2m_;
+
 
 
 
