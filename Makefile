@@ -8,7 +8,7 @@ CC     = nvcc
 CLINK  = $(CC)
 C_LIB  = -lm
 CFLAGS = -std=c++11 -lineinfo -arch=sm_35 -O3 -I${INC} -x cu
-CLINKFLAGS= -O3 -arch=sm_35 
+CLINKFLAGS= -O3 -arch=sm_35
 
 OBJS = ${OBJ}/_main_program.o \
 	${OBJ}/initialize.o \
