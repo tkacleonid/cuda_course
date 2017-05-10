@@ -25,6 +25,7 @@ typedef bool logical;
 
 extern int nx2, ny2, nz2, nx, ny, nz;
 extern logical timeron;
+extern size_t size4, size3, size2;
 
 extern double tx1, tx2, tx3, ty1, ty2, ty3, tz1, tz2, tz3, 
               dx1, dx2, dx3, dx4, dx5, dy1, dy2, dy3, dy4, 
