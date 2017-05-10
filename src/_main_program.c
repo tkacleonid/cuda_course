@@ -50,7 +50,6 @@ size_t size3 = sizeof(double) * nx * ny * nz;
 size_t size2 = sizeof(double) * nx * 5;
 
 
-
 double* g_u;
 double* g_rhs;
 double* g_forcing;
@@ -72,8 +71,6 @@ double* g_lhs2_ ;
 double* g_lhs2p_;
 double* g_lhs2m_;
 
-
-
 int main(int argc, char *argv[])
 {
     printf("\n Program started \n");
@@ -84,6 +81,8 @@ int main(int argc, char *argv[])
     const char *t_names[t_last + 1];
 
     timeron = inittrace(t_names);
+	
+	
     result = initparameters(argc, argv, &niter);
     if (result == 0)
         return -1;
@@ -98,22 +97,22 @@ int main(int argc, char *argv[])
     set_constants();
     exact_rhs();
     initialize();
-	
-	SAFE_CALL(cudaMemcpyAsync(g_forcing, forcing, size4, cudaMemcpyHostToDevice));
-    SAFE_CALL(cudaMemcpyAsync(g_u, u, size4, cudaMemcpyHostToDevice));
 
     // main loop
     timer_start(t_total);
+
+    SAFE_CALL(cudaMemcpyAsync(g_forcing, forcing, size4, cudaMemcpyHostToDevice));
+    SAFE_CALL(cudaMemcpyAsync(g_u, u, size4, cudaMemcpyHostToDevice));
+
     for (step = 1; step <= niter; step++) 
     {
         if ( (step % 20) == 0 || step == 1)
             printf(" Time step %4d\n", step);
         adi();
     }
-	
-	SAFE_CALL(cudaMemcpyAsync(u, g_u, size4, cudaMemcpyDeviceToHost));
-	
-	
+
+    SAFE_CALL(cudaMemcpyAsync(u, g_u, size4, cudaMemcpyDeviceToHost));
+
     timer_stop(t_total);
     tmax = timer_read(t_total);
 
