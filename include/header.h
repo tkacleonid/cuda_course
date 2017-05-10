@@ -1,5 +1,7 @@
 #pragma once
 #include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include "data_params.h"
 
 #define t_total     1
