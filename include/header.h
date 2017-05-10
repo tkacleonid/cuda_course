@@ -54,6 +54,27 @@ extern double lhs_ [P_SIZE][5];
 extern double lhsp_[P_SIZE][5];
 extern double lhsm_[P_SIZE][5];
 
+
+
+extern double* g_u;
+extern double* g_rhs;
+extern double* g_forcing;
+
+extern double* g_us;
+extern double* g_vs;
+extern double* g_ws;
+extern double* g_qs;
+extern double* g_rho_i;
+extern double* g_speed;
+extern double* g_square;
+
+extern double* g_lhs_ ;
+extern double* g_lhsp_;
+extern double* g_lhsm_;
+
+
+
+
 //-----------------------------------------------------------------------
 //initialize functions
 void set_constants();
@@ -87,3 +108,34 @@ void timer_stop( int n );
 double timer_read( int n );
 void wtime( double *);
 
+#define SAFE_CALL(op) do { \
+    cudaError_t err = op; \
+    if (err != cudaSuccess) { \
+        printf("ERROR [%s] in line %d: %s\n", __FILE__, __LINE__, cudaGetErrorString(err)); \
+        exit(1); \
+    } \
+} while(0)
+	
+
+
+#define SAFE_CALL(op) do { \
+    cudaError_t err = op; \
+    if (err != cudaSuccess) { \
+        printf("ERROR [%s] in line %d: %s\n", __FILE__, __LINE__, cudaGetErrorString(err)); \
+        exit(1); \
+    } \
+} while(0)
+
+//сhange index
+
+#define u(k,j,i,m) u[(m) * P_SIZE * P_SIZE * P_SIZE + (k) * P_SIZE * P_SIZE + (j) * P_SIZE + i]
+#define rhs(k,j,i,m) rhs[(m) * P_SIZE * P_SIZE * P_SIZE + (k) * P_SIZE * P_SIZE + (j) * P_SIZE + i]
+#define forcing(k,j,i,m) forcing[(m) * P_SIZE * P_SIZE * P_SIZE + (k) * P_SIZE * P_SIZE + (j) * P_SIZE + i]
+
+#define us(k,j,i) us[(k) * P_SIZE * P_SIZE + (j) * P_SIZE + i]
+#define vs(k,j,i) vs[(k) * P_SIZE * P_SIZE + (j) * P_SIZE + i]
+#define ws(k,j,i) ws[(k) * P_SIZE * P_SIZE + (j) * P_SIZE + i]
+#define qs(k,j,i) qs[(k) * P_SIZE * P_SIZE + (j) * P_SIZE + i]
+#define rho_i(k,j,i) rho_i[(k) * P_SIZE * P_SIZE + (j) * P_SIZE + i]
+#define speed(k,j,i) speed[(k) * P_SIZE * P_SIZE + (j) * P_SIZE + i]
+#define square(k,j,i) square[(k) * P_SIZE * P_SIZE + (j) * P_SIZE + i]

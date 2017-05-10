@@ -206,7 +206,37 @@ int allocateArrays()
     qs = (double (*)[P_SIZE][P_SIZE] ) malloc(sizeof(double) * nx * ny * nz);    
     rho_i = (double (*)[P_SIZE][P_SIZE] ) malloc(sizeof(double) * nx * ny * nz);    
     speed = (double (*)[P_SIZE][P_SIZE] ) malloc(sizeof(double) * nx * ny * nz);    
-    square = (double (*)[P_SIZE][P_SIZE] ) malloc(sizeof(double) * nx * ny * nz);    
+    square = (double (*)[P_SIZE][P_SIZE] ) malloc(sizeof(double) * nx * ny * nz); 
+
+	
+	size4 = sizeof(double) * nx * ny * nz * 5;
+    size3 = sizeof(double) * nx * ny * nz;
+    size2 = sizeof(double) * nx * 5;
+
+	SAFE_CALL(cudaMalloc(&g_u, size4));
+    SAFE_CALL(cudaMalloc(&g_rhs, size4));
+    SAFE_CALL(cudaMalloc(&g_forcing, size4));
+    SAFE_CALL(cudaMalloc(&g_temp, size4));
+
+    SAFE_CALL(cudaMalloc(&g_us, size3));
+    SAFE_CALL(cudaMalloc(&g_vs, size3));
+    SAFE_CALL(cudaMalloc(&g_ws, size3));
+    SAFE_CALL(cudaMalloc(&g_qs, size3));
+    SAFE_CALL(cudaMalloc(&g_rho_i, size3));
+    SAFE_CALL(cudaMalloc(&g_speed, size3));
+    SAFE_CALL(cudaMalloc(&g_square, size3));
+
+    SAFE_CALL(cudaMalloc(&g_lhs_, size4));
+    SAFE_CALL(cudaMalloc(&g_lhsp_, size4));
+    SAFE_CALL(cudaMalloc(&g_lhsm_, size4));
+
+    SAFE_CALL(cudaMalloc(&g_lhs2_, size2));
+    SAFE_CALL(cudaMalloc(&g_lhs2p_, size2));
+    SAFE_CALL(cudaMalloc(&g_lhs2m_, size2));
+
+
+
+	
     
     return 1;
 }
@@ -224,6 +254,28 @@ int deallocateArrays()
     free(rho_i);
     free(speed);
     free(square);
+	
+	
+	SAFE_CALL(cudaFree(g_u));
+    SAFE_CALL(cudaFree(g_rhs));
+    SAFE_CALL(cudaFree(g_forcing));
+    SAFE_CALL(cudaFree(g_temp));
+
+    SAFE_CALL(cudaFree(g_us));
+    SAFE_CALL(cudaFree(g_vs));
+    SAFE_CALL(cudaFree(g_ws));
+    SAFE_CALL(cudaFree(g_qs));
+    SAFE_CALL(cudaFree(g_rho_i));
+    SAFE_CALL(cudaFree(g_speed));
+    SAFE_CALL(cudaFree(g_square));
+
+    SAFE_CALL(cudaFree(g_lhs_));
+    SAFE_CALL(cudaFree(g_lhsp_));
+    SAFE_CALL(cudaFree(g_lhsm_));
+
+    SAFE_CALL(cudaFree(g_lhs2_));
+    SAFE_CALL(cudaFree(g_lhs2p_));
+    SAFE_CALL(cudaFree(g_lhs2m_));
     
     return 1;
 }
