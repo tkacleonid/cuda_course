@@ -322,8 +322,8 @@ void compute_rhs(int rhs_verify)
 
 	if(rhs_verify == 1) {
     	SAFE_CALL(cudaMemcpy(rhs, g_rhs, size4, cudaMemcpyDeviceToHost));  
-		SAFE_CALL(cudaMemcpy(u, g_u, size4, cudaMemcpyDeviceToHost));  
-		SAFE_CALL(cudaMemcpy(forcing, g_forcing, size4, cudaMemcpyDeviceToHost));  
+		//SAFE_CALL(cudaMemcpy(u, g_u, size4, cudaMemcpyDeviceToHost));  
+		//SAFE_CALL(cudaMemcpy(forcing, g_forcing, size4, cudaMemcpyDeviceToHost));  
 		SAFE_CALL(cudaMemcpy(us, g_us, size3, cudaMemcpyDeviceToHost));  
 		SAFE_CALL(cudaMemcpy(vs, g_vs, size3, cudaMemcpyDeviceToHost));  
 		SAFE_CALL(cudaMemcpy(ws, g_ws, size3, cudaMemcpyDeviceToHost));  
